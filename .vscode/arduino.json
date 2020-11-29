@@ -1,0 +1,4 @@
+{
+    "sketch": "bit-counter.ino",
+    "board": "arduino:avr:uno"
+}
