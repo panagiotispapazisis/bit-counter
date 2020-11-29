@@ -13,18 +13,27 @@ void setup()
 void loop()
 {
 
-  for (int i = 4; i <= 11; i++)
+  while (Serial.available() == 0)
+    ;
+  int value = Serial.parseInt();
+  calculate(value);
+}
+void calculate(int val)
+{
+
+  int dataArray[8] = {128, 64, 32, 16, 8, 4, 2, 1};
+  int bitArray[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+  for (int i = 0; i < 8; i++)
   {
-    digitalWrite(i, HIGH);
-    delay(100);
+    bitArray[i] = val / dataArray[i];
+    val = val % dataArray[i];
   }
 
-  for (int i = 11; i >= 4; i--)
+  int count = 4;
+  for (int i = 7; i >= 0; i--)
   {
-
-    digitalWrite(i, LOW);
-    delay(100);
+    digitalWrite(count, bitArray[i]);
+    count = count + 1;
   }
-  Serial.println(digitalRead(2));
-  Serial.println(digitalRead(3));
 }
